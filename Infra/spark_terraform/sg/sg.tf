@@ -2,12 +2,12 @@
 
 variable "ingress" {
     type = list(number)
-    default = [80,443,22]
+    default = [80,443,22,8888]
 }
 
 variable "egress" {
     type = list(number)
-    default = [80,443,22]
+    default = [80,443,22,8888]
 }
 
 output "sg_name" {
