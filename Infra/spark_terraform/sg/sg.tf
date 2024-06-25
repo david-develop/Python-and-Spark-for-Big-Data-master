@@ -2,12 +2,7 @@
 
 variable "ingress" {
     type = list(number)
-    default = [80,443,22,8888]
-}
-
-variable "egress" {
-    type = list(number)
-    default = [80,443,22,8888]
+    default = [80,443,22,8888,8081]
 }
 
 output "sg_name" {
@@ -22,20 +17,16 @@ resource "aws_security_group" "ec2_traffic" {
         for_each = var.ingress
         content {
             from_port = port.value
-            to_port = port. value
+            to_port = port.value
             protocol = "TCP"
             cidr_blocks = ["0.0.0.0/0"]
         }
     }
 
-        dynamic "egress" {
-        iterator = port
-        for_each = var.egress
-        content {
-            from_port = port.value
-            to_port = port. value
-            protocol = "TCP"
-            cidr_blocks = ["0.0.0.0/0"]
-        }
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
     }
 }
